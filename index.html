@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+  <div class="max-w-md mx-auto bg-white p-4 rounded shadow">
+    <h1 class="text-2xl font-semibold text-center mb-4">To-Do List</h1>
+    <form id="task-form" class="flex mb-4">
+      <input type="text" id="task-input" class="flex-grow border rounded-l px-3 py-2" placeholder="Add new task" required>
+      <button type="submit" class="bg-blue-500 text-white px-4 rounded-r flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+      </button>
+    </form>
+    <div class="flex justify-center space-x-4 mb-4">
+      <label class="flex items-center space-x-1">
+        <input type="radio" name="filter" value="all" class="text-blue-500" checked>
+        <span>All</span>
+      </label>
+      <label class="flex items-center space-x-1">
+        <input type="radio" name="filter" value="active" class="text-blue-500">
+        <span>Active</span>
+      </label>
+      <label class="flex items-center space-x-1">
+        <input type="radio" name="filter" value="completed" class="text-blue-500">
+        <span>Completed</span>
+      </label>
+    </div>
+    <ul id="task-list" class="divide-y"></ul>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
