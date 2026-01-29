@@ -30,11 +30,11 @@ function createTaskElement(task) {
   span.textContent = task.text;
 
   const editBtn = document.createElement('button');
-  editBtn.textContent = 'Edit';
+  editBtn.textContent = 'Изменить';
   editBtn.addEventListener('click', () => editTask(task.id));
 
   const deleteBtn = document.createElement('button');
-  deleteBtn.textContent = 'Delete';
+  deleteBtn.textContent = 'Удалить';
   deleteBtn.addEventListener('click', () => deleteTask(task.id));
 
   li.appendChild(checkbox);
@@ -71,7 +71,7 @@ function addTask(text) {
 
 function editTask(id) {
   const task = tasks.find(t => t.id === id);
-  const newText = prompt('Edit task', task.text);
+  const newText = prompt('Редактировать задачу', task.text);
   if (newText !== null && newText.trim() !== '') {
     task.text = newText.trim();
     saveTasks();
