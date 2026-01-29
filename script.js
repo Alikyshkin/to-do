@@ -10,6 +10,11 @@ function saveTasks() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
+function updateTasks() {
+  saveTasks();
+  renderTasks();
+}
+
 function createTaskElement(task) {
   const li = document.createElement('li');
   li.className = 'task';
@@ -21,8 +26,7 @@ function createTaskElement(task) {
   checkbox.checked = task.completed;
   checkbox.addEventListener('change', () => {
     task.completed = checkbox.checked;
-    saveTasks();
-    renderTasks();
+    updateTasks();
   });
 
   const span = document.createElement('span');
@@ -65,8 +69,7 @@ function addTask(text) {
     completed: false
   };
   tasks.push(task);
-  saveTasks();
-  renderTasks();
+  updateTasks();
 }
 
 function editTask(id) {
@@ -74,15 +77,13 @@ function editTask(id) {
   const newText = prompt('Редактировать задачу', task.text);
   if (newText !== null && newText.trim() !== '') {
     task.text = newText.trim();
-    saveTasks();
-    renderTasks();
+    updateTasks();
   }
 }
 
 function deleteTask(id) {
   tasks = tasks.filter(t => t.id !== id);
-  saveTasks();
-  renderTasks();
+  updateTasks();
 }
 
 filterRadios.forEach(radio => {
