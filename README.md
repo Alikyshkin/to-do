@@ -1,11 +1,29 @@
-# To-Do
+# Список дел
 
-Simple to-do list application.
+Простое веб-приложение для ведения списка задач.
 
-## Features
+## Возможности
 
-- Add, edit and delete tasks
-- Filter tasks by status (all, active, completed)
-- Tasks are saved in `localStorage`
+- **Добавление** — введите текст в поле и нажмите «Добавить»
+- **Редактирование** — кнопка «Изменить» у каждой задачи
+- **Удаление** — кнопка «Удалить»
+- **Отметка выполнения** — галочка у задачи
+- **Фильтры** — Все / Активные / Выполненные
+- **Сохранение** — данные хранятся в `localStorage` браузера
 
-Open `index.html` in a browser to use the application.
+## Запуск
+
+Откройте файл `index.html` в браузере. Сервер не требуется.
+
+## Структура проекта
+
+```
+├── index.html   — разметка и форма
+├── style.css    — стили
+├── script.js    — логика приложения
+└── README.md    — описание
+```
+
+## Технологии
+
+HTML, CSS, JavaScript (без фреймворков).
