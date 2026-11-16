@@ -1,239 +1,193 @@
 :root {
-  --bg: #f0f4f8;
-  --surface: #ffffff;
-  --surface-hover: #f8fafc;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --accent: #6366f1;
-  --accent-hover: #4f46e5;
-  --accent-soft: #e0e7ff;
-  --border: #e2e8f0;
-  --success: #22c55e;
-  --danger: #ef4444;
-  --danger-hover: #dc2626;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 10px 40px -15px rgba(0, 0, 0, 0.15);
+  color-scheme: light;
+  --ink: #1e3028;
+  --muted: #52645b;
+  --paper: #fdfbf5;
+  --field: #fffcf5;
+  --background: #e1ebe5;
+  --accent: #245545;
+  --line: #d7ded1;
+  --rust: #853a2c;
+  font-family: "Nunito", "Avenir Next", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--background);
 }
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Nunito', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  padding: 24px;
-  margin: 0;
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; padding: clamp(18px, 8vh, 80px) clamp(12px, 4vw, 42px); }
+button, input { font: inherit; }
+button, label { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .app {
-  max-width: 520px;
-  margin: 0 auto;
-  background: var(--surface);
-  padding: 28px 32px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
+  max-width: 710px;
+  margin-inline: auto;
+  padding: clamp(19px, 5vw, 47px);
+  border: 1px solid #c3cfc5;
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: 0 4px 0 -2px #c7d5ca, 0 18px 46px #2d433012;
 }
 
-.app h1 {
-  margin: 0 0 24px;
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: -0.02em;
-}
-
-/* Форма добавления */
-#task-form {
+.heading {
   display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  gap: 8px 20px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  padding-bottom: 17px;
+  border-bottom: 1px solid #a3b2a3;
+}
+.heading h1 {
+  font: 500 clamp(2.55rem, 7.5vw, 4rem)/.98 "Baskervville", Georgia, serif;
+  margin: 0;
+  letter-spacing: -.055em;
+}
+.heading p {
+  font-size: .92rem;
+  font-weight: 650;
+  color: var(--muted);
+  margin: 0;
 }
 
-#task-input {
-  flex: 1;
-  padding: 12px 16px;
-  font-family: inherit;
-  font-size: 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  color: var(--text);
-  transition: border-color 0.2s, box-shadow 0.2s;
+.composer { margin-top: 24px; }
+.composer > label {
+  display: block;
+  font-size: .87rem;
+  font-weight: 700;
+  margin-bottom: 7px;
 }
-
-#task-input::placeholder {
-  color: var(--text-muted);
+.composer-fields { display: flex; gap: 9px; }
+.composer input, .task-editor input {
+  min-width: 0;
+  width: 100%;
+  min-height: 47px;
+  padding: 10px 12px;
+  color: var(--ink);
+  background: var(--field);
+  border: 1px solid #a7b3a8;
+  border-radius: 5px;
 }
-
-#task-input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
-}
-
-#task-form button[type="submit"] {
-  padding: 12px 20px;
-  font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #fff;
+.composer input::placeholder { color: #657469; opacity: 1; }
+.primary-button {
+  min-height: 47px;
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  color: #fffdf5;
   background: var(--accent);
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  padding: 8px 17px;
+  font-weight: 700;
+  white-space: nowrap;
 }
+.primary-button:hover { background: #193b30; border-color: #193b30; }
+.storage-warning { margin: 12px 0 0; color: var(--rust); font-size: .9rem; }
 
-#task-form button[type="submit"]:hover {
-  background: var(--accent-hover);
-}
-
-#task-form button[type="submit"]:active {
-  transform: scale(0.98);
-}
-
-/* Фильтры */
+.tasks { margin-top: 25px; }
 .filters {
   display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
   flex-wrap: wrap;
+  gap: 4px 17px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  margin: 0;
+  padding: 0;
 }
-
-.filters label {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 14px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  background: var(--surface-hover);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: color 0.2s, background 0.2s, border-color 0.2s;
-}
-
-.filters label:hover {
-  color: var(--text);
-  background: var(--border);
-}
-
+.filters label { position: relative; cursor: pointer; }
 .filters input {
   position: absolute;
   opacity: 0;
-  width: 0;
-  height: 0;
+  width: 1px;
+  height: 1px;
 }
-
-.filters input:checked + label,
-.filters label:has(input:checked) {
-  color: var(--accent);
-  background: var(--accent-soft);
-  border-color: var(--accent);
-}
-
-.filters label:has(input:focus-visible) {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Список задач */
-#task-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.task {
+.filters span {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  background: var(--surface-hover);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  min-height: 44px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: var(--muted);
+  font-size: .87rem;
+  font-weight: 650;
+  white-space: nowrap;
 }
+.filters input:checked + span { color: var(--accent); border-bottom-color: var(--accent); }
+.filters input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.task:hover {
-  background: var(--surface);
-  border-color: var(--border);
-  box-shadow: var(--shadow);
+#task-list { margin: 0; padding: 0; list-style: none; }
+.task {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 18px;
+  align-items: center;
+  min-height: 60px;
+  border-bottom: 1px solid var(--line);
+  padding: 5px 0;
 }
-
-.task .text {
-  flex: 1;
-  font-size: 1rem;
-  word-break: break-word;
+.task-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 44px;
+  cursor: pointer;
 }
-
-.task.completed .text {
-  color: var(--text-muted);
-  text-decoration: line-through;
-}
-
-/* Чекбокс */
-.task input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+.task-title input {
+  width: 19px;
+  height: 19px;
   margin: 0;
-  accent-color: var(--success);
+  flex: 0 0 auto;
+  accent-color: var(--accent);
   cursor: pointer;
-  flex-shrink: 0;
 }
-
-/* Кнопки в задаче */
-.task button {
-  padding: 8px 12px;
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s, transform 0.1s;
-  flex-shrink: 0;
-}
-
-.task button:active {
-  transform: scale(0.96);
-}
-
-.task button:first-of-type {
-  color: var(--text-muted);
-  background: transparent;
-}
-
-.task button:first-of-type:hover {
+.task-title span { min-width: 0; overflow-wrap: anywhere; line-height: 1.45; }
+.completed .task-title span { color: var(--muted); text-decoration: line-through; }
+.task-actions { display: flex; gap: 3px 13px; align-items: center; flex-wrap: wrap; }
+.task-actions button {
+  min-height: 44px;
   color: var(--accent);
-  background: var(--accent-soft);
-}
-
-.task button:last-of-type {
-  color: var(--danger);
   background: transparent;
+  border: 0;
+  padding: 0 1px;
+  font-size: .8rem;
+  font-weight: 700;
+  text-align: start;
+}
+.task-actions button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.task-actions .delete-task { color: var(--rust); }
+.task-editor {
+  display: flex;
+  gap: 6px 14px;
+  grid-column: 1 / -1;
+}
+.empty-state { color: var(--muted); padding: 23px 0 6px; margin: 0; font-size: .95rem; }
+
+@media (max-width: 485px) {
+  body { padding-top: 23px; }
+  .heading { padding-bottom: 15px; }
+  .heading p { flex: 1 0 100%; }
+  .composer { margin-top: 20px; }
+  .tasks { margin-top: 18px; }
+  .primary-button { padding-inline: 11px; }
+  .filters { column-gap: 13px; }
+  .filters span { font-size: .82rem; }
+  .task { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 6px; }
+  .task-actions { margin-inline-start: 29px; gap: 0 15px; }
+  .task-editor { flex-direction: column; padding-top: 4px; }
+  .task-editor .task-actions { margin-inline-start: 0; }
 }
 
-.task button:last-of-type:hover {
-  color: #fff;
-  background: var(--danger);
-}
-
-/* Пустой список */
-#task-list:empty::after {
-  content: 'Пока нет задач. Добавьте первую выше.';
-  display: block;
-  padding: 32px 16px;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.95rem;
+@media (max-width: 350px) {
+  .composer-fields { flex-direction: column; }
+  .composer-fields .primary-button { align-self: start; }
 }
